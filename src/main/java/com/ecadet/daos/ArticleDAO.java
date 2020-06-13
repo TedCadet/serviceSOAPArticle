@@ -9,6 +9,8 @@ import com.ecadet.entites.Article;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 /**
  *
@@ -23,7 +25,7 @@ public class ArticleDAO {
     
     private static String url = String.format("jdbc:mysql://%s:3306/%s", ip, db);
     
-    public static List<Article> GetAllArticles() {
+    public static List<Article> getAllArticles() {
         // liste qui sera retourner contenant tous les articles
         List<Article> resAllArticles = new ArrayList<Article>();
         
@@ -70,9 +72,161 @@ public class ArticleDAO {
             
         } catch(SQLException ex) {
             System.out.println(ex.toString());
+        } 
+        return resAllArticles;
+    }
+    
+    // methode: putLike
+    public static void putLike(int ArticleId) {
+        
+        // commande qui sera executer par le statement
+        String rq = "UPDATE article"
+                    + "SET likes = likes + 1"
+                    + "WHERE user_id='?'";
+        
+        try{
+        // instanciation de la conection
+        System.out.println("Connection a MySQL...");
+        Connection con = DriverManager.getConnection(url, user, password);
+        
+        // instanciation du statement
+        PreparedStatement stmt = con.prepareStatement(rq);
+        stmt.setInt(1, ArticleId);
+        
+        /* execution du update. Verifie le nombre de rangées affectées
+        *  pour vérifier s'il y a eu une erreur
+        */
+        int rowAffected = stmt.executeUpdate();
+        if(rowAffected == 1){
+            System.out.println("Update reussi");
+        } else if(rowAffected > 1) {
+            System.out.println("erreur: plusieurs rows affecté");
+        } else{
+            System.out.println("erreur: aucun row affecté");
+        }   
+        
+
+        //fermeture de la connection
+        System.out.println("fermeture de la connection...");
+        con.close();
+            
+        } catch(SQLException ex) {
+            System.out.println(ex.toString());
         } finally {
             
         }
-        return resAllArticles;
+    }
+    
+    // methode: getLikes
+    public static int getLikes(int ArticleId) {
+        // liste qui sera retourner contenant tous les articles
+        int resLikes = 0;
+        
+        // commande qui sera executer par le statement
+        String rq = "SELECT likes FROM article WHERE article_id=?";
+        
+        try{
+        // instanciation de la conection
+        System.out.println("Connection a MySQL...");
+        Connection con = DriverManager.getConnection(url, user, password);
+        
+        // instanciation du statement
+        PreparedStatement stmt = con.prepareStatement(rq);
+        stmt.setInt(1, ArticleId);
+        
+        // instanciation du ResultSets qui va contenir les resultats de la requetes 
+        ResultSet rs = stmt.executeQuery();
+        
+        // boucle while qui va visiter le ResultSets pour recuperer le resultat de la requete
+        while(rs.next()) { 
+            resLikes = rs.getInt("likes");
+   
+        }
+        
+        //fermeture de la connection
+        System.out.println("fermeture de la connection...");
+        con.close();
+            
+        } catch(SQLException ex) {
+            System.out.println(ex.toString());
+        } 
+        return resLikes;
+    }
+    
+    // methode: putLike
+    public static void putDislike(int ArticleId) {
+        
+        // commande qui sera executer par le statement
+        String rq = "UPDATE article"
+                    + "SET dislikes = dislikes + 1"
+                    + "WHERE user_id='?'";
+        
+        try{
+        // instanciation de la conection
+        System.out.println("Connection a MySQL...");
+        Connection con = DriverManager.getConnection(url, user, password);
+        
+        // instanciation du statement
+        PreparedStatement stmt = con.prepareStatement(rq);
+        stmt.setInt(1, ArticleId);
+        
+        /* execution du update. Verifie le nombre de rangées affectées
+        *  pour vérifier s'il y a eu une erreur
+        */
+        int rowAffected = stmt.executeUpdate();
+        if(rowAffected == 1){
+            System.out.println("Update reussi");
+        } else if(rowAffected > 1) {
+            System.out.println("erreur: plusieurs rows affecté");
+        } else{
+            System.out.println("erreur: aucun row affecté");
+        }   
+        
+
+        //fermeture de la connection
+        System.out.println("fermeture de la connection...");
+        con.close();
+            
+        } catch(SQLException ex) {
+            System.out.println(ex.toString());
+        } finally {
+            
+        }
+    }
+    
+    // methode: getLikes
+    public static int getDislikes(int ArticleId) {
+        // liste qui sera retourner contenant tous les articles
+        int resLikes = 0;
+        
+        // commande qui sera executer par le statement
+        String rq = "SELECT dislikes FROM article WHERE article_id=?";
+        
+        try{
+        // instanciation de la conection
+        System.out.println("Connection a MySQL...");
+        Connection con = DriverManager.getConnection(url, user, password);
+        
+        // instanciation du statement
+        PreparedStatement stmt = con.prepareStatement(rq);
+        stmt.setInt(1, ArticleId);
+        
+        // instanciation du ResultSets qui va contenir les resultats de la requetes 
+        ResultSet rs = stmt.executeQuery();
+        
+        // boucle while qui va visiter le ResultSets pour recuperer le resultat de la requete
+        while(rs.next()) { 
+            resLikes = rs.getInt("dislikes");
+   
+        }
+        
+        //fermeture de la connection
+        System.out.println("fermeture de la connection...");
+        con.close();
+            
+        } catch(SQLException ex) {
+            System.out.println(ex.toString());
+        } 
+        return resLikes;
     }
 }
