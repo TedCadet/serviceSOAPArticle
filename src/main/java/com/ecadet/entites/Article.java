@@ -20,6 +20,8 @@ public class Article {
     private String auteur;
     private String date_parution;
     private String texte;
+    
+    public Article() {}
 
     public Article(int articleId, String titre, String auteur, String date_parution, String texte) {
         this.articleId = articleId;

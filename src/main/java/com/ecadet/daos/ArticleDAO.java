@@ -25,7 +25,7 @@ public class ArticleDAO {
     
     private static String url = String.format("jdbc:mysql://%s:3306/%s", ip, db);
     
-    public static List<Article> getAllArticles() {
+    public static List<Article> AllArticles() {
         // liste qui sera retourner contenant tous les articles
         List<Article> resAllArticles = new ArrayList<Article>();
         
@@ -76,8 +76,12 @@ public class ArticleDAO {
         return resAllArticles;
     }
     
-    // methode: putLike
-    public static void putLike(int ArticleId) {
+    public static Article Article(int ArticleId) {
+        return new Article();
+    }
+    
+    // methode: addLike
+    public static void addLike(int ArticleId) {
         
         // commande qui sera executer par le statement
         String rq = "UPDATE article"
@@ -117,8 +121,8 @@ public class ArticleDAO {
         }
     }
     
-    // methode: getLikes
-    public static int getLikes(int ArticleId) {
+    // methode: getLikesDb
+    public static int getLikesDb(int ArticleId) {
         // liste qui sera retourner contenant tous les articles
         int resLikes = 0;
         
@@ -153,8 +157,8 @@ public class ArticleDAO {
         return resLikes;
     }
     
-    // methode: putLike
-    public static void putDislike(int ArticleId) {
+    // methode: addLike
+    public static void addDislike(int ArticleId) {
         
         // commande qui sera executer par le statement
         String rq = "UPDATE article"
@@ -194,8 +198,8 @@ public class ArticleDAO {
         }
     }
     
-    // methode: getLikes
-    public static int getDislikes(int ArticleId) {
+    // methode: getLikesDb
+    public static int getDislikesDb(int ArticleId) {
         // liste qui sera retourner contenant tous les articles
         int resLikes = 0;
         

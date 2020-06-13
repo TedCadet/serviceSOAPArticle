@@ -20,39 +20,39 @@ import javax.jws.WebParam;
 public class LecteurArticleWS {
 
     
-    // methode: getAllArticles()
+    // methode: AllArticles()
     @WebMethod(operationName = "GetAllArticles")
     public List<Article> getAllArticles() {
-        return ArticleDAO.getAllArticles();
+        return ArticleDAO.AllArticles();
     }
     
     // methode: getArticle
     @WebMethod(operationName = "GetArticle")
     public Article getArticle(@WebParam( name = "ArticleId" ) int ArticleId) {
-        return null;
+        return ArticleDAO.Article(ArticleId);
     }
     
-    // methode: putLike
+    // methode: addLike
     @WebMethod(operationName = "PutLike")
     public void putLike(@WebParam( name = "ArticleId" ) int ArticleId) {
-        ArticleDAO.putLike(ArticleId);
+        ArticleDAO.addLike(ArticleId);
     }
     
-    // methode: getLikes
+    // methode: getLikesDb
     @WebMethod(operationName = "GetLikes")
     public int getLikes(@WebParam( name = "ArticleId" ) int ArticleId) {
-        return ArticleDAO.getLikes(ArticleId);
+        return ArticleDAO.getLikesDb(ArticleId);
     }
     
-    // methode: putDislike
+    // methode: addDislike
     @WebMethod(operationName = "PutDislike")
     public void putDislike(@WebParam( name = "ArticleId" ) int ArticleId) {
-        ArticleDAO.putDislike(ArticleId);
+        ArticleDAO.addDislike(ArticleId);
     }
     
-    // methode: getDislikes
+    // methode: getDislikesDb
     @WebMethod(operationName = "GetDislikes")
     public int getDislikes(@WebParam( name = "ArticleId" ) int ArticleId) {
-        return ArticleDAO.getDislikes(ArticleId);
+        return ArticleDAO.getDislikesDb(ArticleId);
     }
 }
