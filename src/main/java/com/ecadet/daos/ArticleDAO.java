@@ -19,7 +19,7 @@ import javax.jws.WebParam;
 public class ArticleDAO {
     // string pour la connexion TODO: Objet Database
     private static String ip = "192.168.1.171";
-    private static String user = "root";
+    private static String user = "ted";
     private static String password = "1234";
     private static String db = "article_a15";
     
@@ -77,7 +77,45 @@ public class ArticleDAO {
     }
     
     public static Article Article(int ArticleId) {
-        return new Article();
+        // liste qui sera retourner contenant tous les articles
+        Article resArticle = new Article();
+        
+        // commande qui sera executer par le statement
+        String rq = "SELECT titre, auteur, date_parution, texte, likes, dislikes" 
+                + " FROM article WHERE article_id=?";
+        
+        try{
+        // instanciation de la conection
+        System.out.println("Connection a MySQL...");
+        Connection con = DriverManager.getConnection(url, user, password);
+        
+        // instanciation du statement
+        PreparedStatement stmt = con.prepareStatement(rq);
+        stmt.setInt(1, ArticleId);
+        
+        // instanciation du ResultSets qui va contenir les resultats de la requetes 
+        ResultSet rs = stmt.executeQuery();
+        
+        // boucle while qui va visiter le ResultSets pour recuperer le resultat de la requete
+        while(rs.next()) { 
+            //resLikes = rs.getInt("likes");
+            resArticle.setTitre(rs.getString("titre"));
+            resArticle.setAuteur(rs.getString("auteur"));
+            resArticle.setDateParution(rs.getString("date_parution"));
+            resArticle.setTexte(rs.getString("texte"));
+            resArticle.setLikes(rs.getInt("likes"));
+            resArticle.setDislikes(rs.getInt("dislikes"));
+   
+        }
+        
+        //fermeture de la connection
+        System.out.println("fermeture de la connection...");
+        con.close();
+            
+        } catch(SQLException ex) {
+            System.out.println(ex.toString());
+        } 
+        return resArticle;
     }
     
     // methode: addLike

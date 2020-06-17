@@ -18,16 +18,19 @@ public class Article {
     private int articleId;
     private String titre;
     private String auteur;
-    private String date_parution;
+    private String dateParution;
     private String texte;
+    private int likes;
+    private int dislikes;
+    
     
     public Article() {}
 
-    public Article(int articleId, String titre, String auteur, String date_parution, String texte) {
+    public Article(int articleId, String titre, String auteur, String dateParution, String texte) {
         this.articleId = articleId;
         this.titre = titre;
         this.auteur = auteur;
-        this.date_parution = date_parution;
+        this.dateParution = dateParution;
         this.texte = texte;
     }
 
@@ -55,12 +58,12 @@ public class Article {
         this.auteur = auteur;
     }
 
-    public String getDate_parution() {
-        return date_parution;
+    public String getDateParution() {
+        return dateParution;
     }
 
-    public void setDate_parution(String date_parution) {
-        this.date_parution = date_parution;
+    public void setDateParution(String dateParution) {
+        this.dateParution = dateParution;
     }
 
     public String getTexte() {
@@ -71,9 +74,25 @@ public class Article {
         this.texte = texte;
     }
 
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
     @Override
     public String toString() {
-        return "Article{" + "articleId=" + articleId + ", titre=" + titre + ", auteur=" + auteur + ", date_parution=" + date_parution + ", texte=" + texte + '}';
+        return "Article{" + "articleId=" + articleId + ", titre=" + titre + ", auteur=" + auteur + ", dateParution=" + dateParution + ", texte=" + texte + '}';
     }
 
     @Override
@@ -81,7 +100,7 @@ public class Article {
         int hash = 3;
         hash = 59 * hash + this.articleId;
         hash = 59 * hash + Objects.hashCode(this.titre);
-        hash = 59 * hash + Objects.hashCode(this.date_parution);
+        hash = 59 * hash + Objects.hashCode(this.dateParution);
         return hash;
     }
 
@@ -100,7 +119,7 @@ public class Article {
         if (!Objects.equals(this.titre, other.titre)) {
             return false;
         }
-        if (!Objects.equals(this.date_parution, other.date_parution)) {
+        if (!Objects.equals(this.dateParution, other.dateParution)) {
             return false;
         }
         return true;
